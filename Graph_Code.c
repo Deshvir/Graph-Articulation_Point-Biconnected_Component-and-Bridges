@@ -92,14 +92,14 @@ void DFS(int G[num_v][num_v], int V,int visited[num_v], int parent[num_v], int d
 				if(parent[V] == -1 && children > 1){					
 					ap[V] = true;
 					
-					//printf("Biconnected Components : "); //print connected graph values
+					//Biconnected Components 
 					for(int i = temp; i >= top ; i--){
-						//printf("%d\t", stack[i]);
+						
 						arr_BP[count_BC] = stack[i];
 						count_BC++;
 						vertex_cost++;
 					}
-					//printf("\n");
+					
 					insertionSortBP(arr_BP, count_BC);	
 					printSortedBC(arr_BP, count_BC, f_Ac);				
 					temp = top;
@@ -108,14 +108,14 @@ void DFS(int G[num_v][num_v], int V,int visited[num_v], int parent[num_v], int d
 				if(parent[V] != -1 && low[i] >= disc[V] ){					
 					ap[V] = true;
 										
-					//printf("Biconnected Components :: "); //print connected graph values//
+					//Biconnected Components 
 					for(int i = temp; i >= top ; i--){
-						//printf(" %d ", stack[i]);
+						
 						arr_BP[count_BC] = stack[i];
 						count_BC++;
 						vertex_cost++;
 					}
-					//printf("\n");	
+						
 					insertionSortBP(arr_BP, count_BC);	
 					printSortedBC(arr_BP, count_BC,f_Ac);				
 					temp = top;
@@ -124,12 +124,12 @@ void DFS(int G[num_v][num_v], int V,int visited[num_v], int parent[num_v], int d
 				//Bridge Detection Condition
 				if(low[i] > disc[V]){					
 					if(V < i){	//for putting in sorting order
-						//printf("Bridge: %d-%d\n", V, i);
+						
 						fprintf(f_Ab, "%d  %d\n",V,i);
 						bridge_count++;
 					}
 					else{
-						//printf("Bridge: %d-%d\n", i, V);
+						
 						fprintf(f_Ab, "%d  %d\n",i,V);
 						bridge_count++;
 					}
@@ -173,13 +173,13 @@ Parameters :	_In_ of type int arr[] -> take array of elements in biconnected com
 Called function: None
 */
 void printSortedBC(int arr[], int n, FILE *f_Ac) {	
-	//printf("Output Array : [");	
+		
 	for(int j = 0; j < n; j++) 	{
-	//	printf("%d ", arr[j]);
+	
 		fprintf(f_Ac," %d ", arr[j]);		
 	}
 	fprintf(f_Ac,"\n");
-	//printf("]\n");
+	
 	count_BC = 0;
 	biconnected_count++;
 }
@@ -207,13 +207,11 @@ int main(int argc, char *argv[])
 	// read input from file
 	ifp = fopen(argv[1], "r");
 
-	// int num_v = 0;
+	
 	char l[256];
 	while (fgets(l, sizeof l, ifp) != NULL) num_v++;
-	rewind(ifp);
-
-  	// TODO: please comment the following line
-  	//printf("Total number of vertices = %d\n", num_v);
+	rewind(ifp); 
+  	
 
   	int G[num_v][num_v]; //represent the adjacency matrix of a graph
 	int visited[num_v];	//store status of visited num_v
@@ -238,7 +236,7 @@ int main(int argc, char *argv[])
 		ap[i] = 0;	//articulation status of each num_v is 0 initially
 		vertex_cost++;
 	}
-	//printf("vertex_cost : %d\n", vertex_cost);
+	
 
 	char line[1024];
 	while (fgets(line, sizeof line, ifp) != NULL)	{
@@ -252,7 +250,7 @@ int main(int argc, char *argv[])
 			// there is an edge from src_vertex to dst_vertex
 			sscanf(pch, "%d", &dst_vertex);
       		// TODO : please comment the following line
-      		//printf("Edge exists between (%d,%d)\n", src_vertex, dst_vertex);
+      		
 			pch = strtok(NULL, " \n\r");
 			addEdge(src_vertex,dst_vertex,G);
 			edge_count++;
@@ -302,21 +300,21 @@ int main(int argc, char *argv[])
 	}
 	
 	if (temp != -1 && count_BPR > 1) {
-		//printf("Biconnected Components last:");
+		//Biconnected Components last
 		for(int i = temp; i >= top ; i--){			
-			//printf(" %d ", stack[i]);
+			
 			fprintf(f_Ac," %d ", stack[i]);
 		}
 		biconnected_count++;
-		//printf("\n");
+		
 	}
 
-	//printf("Articulation Point :");
+	//Articulation Point
 	for (int i = 1; i <= num_v; ++i)	{			
 		if (ap[i] == 1)	{			
 			sort_AP[count_AP] = i;
 			++count_AP;
-			//printf(" %d ", i);
+			
 			fprintf(f_Aa," %d ", i);
 		}		
 	}	
@@ -329,7 +327,7 @@ int main(int argc, char *argv[])
 	printf("Articulation Point count : %d\n", count_AP);	
 	printf("Brigde Count: %d\n", bridge_count);
 	printf("Biconnected Component Count : %d \n", biconnected_count);
-	//printf("Edge Count : %d \n", edge_count);
+	
 	
 	printf("vertex_cost : %d\n", vertex_cost);
 	printf("edge_cost : %d\n",edge_cost);	
